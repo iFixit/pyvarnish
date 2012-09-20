@@ -2,11 +2,11 @@
 #!/usr/bin/env python
 
 import time
-from traceback import format_exc
-from StringIO import StringIO
 import socket
 
 from lxml import etree
+from traceback import format_exc
+from StringIO import StringIO
 
 from pyvarnish.settings import CARBON_SERVER, CARBON_PORT, VARNISH_SERVERS, DEBUG
 from pyvarnish.remote import Varnish_admin
