@@ -10,7 +10,7 @@ __author__ = 'John Moylan'
 
 defaults = {
     'varnish_servers': 'server1, server2',
-    'ssh_config':  "/home/username/.ssh/config",
+    'ssh_config':  os.path.expanduser('~/.ssh/config'),
     'debug':  'True',
     'carbon_server':  'localhost',
     'carbon_port':  '2003',
