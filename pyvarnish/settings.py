@@ -9,7 +9,7 @@ except ImportError:
 __author__ = 'John Moylan'
 
 defaults = {
-    'varnish_servers': 'server1, server2',
+    'varnish_servers': 'localhost',
     'ssh_config':  os.path.expanduser('~/.ssh/config'),
     'debug':  'True',
     'carbon_server':  'localhost',
