@@ -67,7 +67,7 @@ def main():
     parser.add_argument('--carbon-port', action='store', metavar='PORT')
     parser.add_argument('--ssh-config', action='store',
                         metavar='SSH_CONFIG_FILE', type=int)
-    parser.add_argument('-d', '--debug', action='store_true')
+    parser.add_argument('-d', '--debug', action='store_true', default=DEBUG)
     parser.add_argument('--version', action='version',
                         version='pyvarnish %s' % pyvarnish.__version__)
     
@@ -80,8 +80,8 @@ def main():
         CARBON_PORT = args.carbon_port
     if args.ssh_config:
         SSH_CONFIG = args.ssh_config
-    if args.debug is not None:
-        DEBUG = args.debug
+    # argparse always assigns this a value, even if we don't use the flag.
+    DEBUG = args.debug
     
     for server in VARNISH_SERVERS:
         if DEBUG:
