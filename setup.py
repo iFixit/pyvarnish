@@ -1,10 +1,10 @@
 from setuptools import setup, find_packages
 
-from pyvarnish import __author__, __version__
+from pyvarnish import __author__, __description__, __version__
 setup(
     name='pyvarnish',
     version=__version__,
-    description='Varnish Management',
+    description=__description__,
     long_description=open('README.rst').read(),
     author=__author__,
     author_email='john@8t8.eu',

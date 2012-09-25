@@ -4,11 +4,12 @@
 import time
 import socket
 
+from argparse import ArgumentParser
 from lxml import etree
 from traceback import format_exc
 from StringIO import StringIO
 
-from pyvarnish.settings import CARBON_SERVER, CARBON_PORT, VARNISH_SERVERS, DEBUG
+import pyvarnish
 from pyvarnish.remote import Varnish_admin
 
 
@@ -57,13 +58,37 @@ def msg(message):
 
 
 def main():
-
+    from pyvarnish.settings import VARNISH_SERVERS, SSH_CONFIG, DEBUG, \
+                                   CARBON_SERVER, CARBON_PORT
+    parser = ArgumentParser(description=pyvarnish.__description__)
+    
+    parser.add_argument('--varnish-servers', nargs='+', metavar='SERVER')
+    parser.add_argument('--carbon-server', action='store', metavar='SERVER')
+    parser.add_argument('--carbon-port', action='store', metavar='PORT')
+    parser.add_argument('--ssh-config', action='store',
+                        metavar='SSH_CONFIG_FILE', type=int)
+    parser.add_argument('-d', '--debug', action='store_true')
+    parser.add_argument('--version', action='version',
+                        version='pyvarnish %s' % pyvarnish.__version__)
+    
+    args = parser.parse_args()
+    if args.varnish_servers:
+        VARNISH_SERVERS = args.varnish_servers
+    if args.carbon_server:
+        CARBON_SERVER = args.carbon_server
+    if args.carbon_port:
+        CARBON_PORT = args.carbon_port
+    if args.ssh_config:
+        SSH_CONFIG = args.ssh_config
+    if args.debug is not None:
+        DEBUG = args.debug
+    
     for server in VARNISH_SERVERS:
         if DEBUG:
             print 'Connecting to Varnish server at %s...' % server
         try:
             #connect to server
-            vserver = Varnish_admin(server)
+            vserver = Varnish_admin(server, SSH_CONFIG)
             data = vserver.runcmd("varnishstat -x")
         except Exception:
             if DEBUG:

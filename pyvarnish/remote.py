@@ -5,13 +5,12 @@ import sys
 
 from paramiko import SSHClient, SSHConfig, AutoAddPolicy
 
-from pyvarnish.settings import SSH_CONFIG
-
 
 class Varnish_admin():
 
-    def __init__(self, server=''):
+    def __init__(self, server, ssh_config_file):
         self.server = server
+        self.ssh_config_file = ssh_config_file
         self.conf = {
             'hostname': server,
             'port': 22,
@@ -24,10 +23,9 @@ class Varnish_admin():
     def config(self):
         sshconfig = SSHConfig()
         try:
-            sshconfig.parse(open(SSH_CONFIG))
+            sshconfig.parse(open(self.ssh_config_file))
         except IOError:
-            print "your app needs to have a valid " \
-                  "ssh config file location in settings.py"
+            print 'SSH config file location invalid.'
             sys.exit(1)
         conf = sshconfig.lookup(self.server)
         if 'port' in conf:
