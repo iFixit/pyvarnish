@@ -1,0 +1,7 @@
+[DEFAULT]
+#varnish_servers = localhost
+#ssh_config = /home/user/.ssh/config
+#debug = true
+#carbon_server = localhost
+#carbon_port = 2003
+

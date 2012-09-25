@@ -77,19 +77,10 @@ from github ::
 
 or simply download to a local directory and run from there.
 
-Once installed you need to edit settings.py ::
+PyVarnish settings can be specified in a config file; copy
+``config.ini.example`` to ``~/.config/pyvarnish/config.ini`` and change the
+values as you like.
 
-
-    VARNISH_SERVERS = ('server1', "server2",)
-    SSH_CONFIG = "/home/username/.ssh/config"
-    DEBUG = True
-    CARBON_SERVER = 'localhost'
-    CARBON_PORT = 2003
-
-
-* Replace server1, server2 etc with the hostnames of your own varnish servers
-* SSH_CONFIG needs to refer to your .ssh/config file
-* CARBON_SERVER and CARBON_PORT should refer to your graphite server.
-
-Then create a script that runs from crontab to run parse_stats.py
+Alternatively, PyVarnish takes command-line parameters that override settings
+defined in the config file.  See ``--help`` for more information.
 
